@@ -96,6 +96,11 @@
             font-weight: bold;
             color: #333;
         }
+        .explanation {
+            font-size: 12px;
+            color: black;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
@@ -111,6 +116,7 @@
         <div id="inputFields"></div>
         
         <h3 id="result"></h3>
+        <p class="explanation" id="explanation"></p>
         
         <div class="button-container">
             <button onclick="calculateDonation()">Beräkna donation</button>
@@ -136,17 +142,20 @@
         function calculateDonation() {
             let model = document.getElementById("model").value;
             let result = document.getElementById("result");
+            let explanation = document.getElementById("explanation");
             let donation = 0;
             
             if (model === "omsattning") {
                 let omsattning = parseFloat(document.getElementById("omsattning").value) || 0;
                 let procent = parseFloat(document.getElementById("procent").value) || 0;
                 donation = (omsattning * procent) / 100;
+                explanation.innerHTML = "Beräkningen baseras på en procentandel av företagets dagsomsättning.";
             } else if (model === "medellon") {
                 let antal = parseInt(document.getElementById("antal").value) || 0;
                 let medellon = parseFloat(document.getElementById("medellon").value) || 0;
                 let dagslon = medellon / 20; // Antal arbetsdagar i en månad
                 donation = antal * dagslon;
+                explanation.innerHTML = "Beräkningen baseras på att en månadslön delas på 20 arbetsdagar för att få en dagslön per anställd.";
             }
             
             result.innerHTML = "Beräknad donation: " + donation.toLocaleString("sv-SE") + " kr";
