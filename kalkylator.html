@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Donationskalkylator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+        }
+        label, select, input {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        button {
+            background-color: #28a745;
+            color: white;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Donationskalkylator</h2>
+        <label for="model">Välj donationsmodell:</label>
+        <select id="model">
+            <option value="omsattning">Procentuell andel av dagsomsättning</option>
+            <option value="anstallda">Fast belopp per anställd</option>
+            <option value="storlek">Fast belopp baserat på företagets storlek</option>
+            <option value="anpassad">Anpassad donation</option>
+        </select>
+        
+        <div id="inputFields"></div>
+        
+        <button onclick="calculateDonation()">Beräkna donation</button>
+        
+        <h3 id="result"></h3>
+    </div>
+
+    <script>
+        function updateInputs() {
+            let model = document.getElementById("model").value;
+            let inputFields = document.getElementById("inputFields");
+            inputFields.innerHTML = "";
+            
+            if (model === "omsattning") {
+                inputFields.innerHTML = '<label for="omsattning">Dagsomsättning (kr):</label><input type="number" id="omsattning">' +
+                                       '<label for="procent">Procent att donera:</label><input type="number" id="procent">';
+            } else if (model === "anstallda") {
+                inputFields.innerHTML = '<label for="antal">Antal anställda:</label><input type="number" id="antal">' +
+                                       '<label for="belopp">Belopp per anställd (kr):</label><input type="number" id="belopp">';
+            } else if (model === "storlek") {
+                inputFields.innerHTML = '<label for="storlek">Välj företagsstorlek:</label>' +
+                                       '<select id="storlek">' +
+                                       '<option value="5000">Litet företag (5 000 kr)</option>' +
+                                       '<option value="15000">Medelstort företag (15 000 kr)</option>' +
+                                       '<option value="30000">Stort företag (30 000 kr)</option>' +
+                                       '</select>';
+            } else if (model === "anpassad") {
+                inputFields.innerHTML = '<label for="anpassad">Ange belopp att donera (kr):</label><input type="number" id="anpassad">';
+            }
+        }
+        
+        function calculateDonation() {
+            let model = document.getElementById("model").value;
+            let result = document.getElementById("result");
+            let donation = 0;
+            
+            if (model === "omsattning") {
+                let omsattning = parseFloat(document.getElementById("omsattning").value) || 0;
+                let procent = parseFloat(document.getElementById("procent").value) || 0;
+                donation = (omsattning * procent) / 100;
+            } else if (model === "anstallda") {
+                let antal = parseInt(document.getElementById("antal").value) || 0;
+                let belopp = parseFloat(document.getElementById("belopp").value) || 0;
+                donation = antal * belopp;
+            } else if (model === "storlek") {
+                donation = parseInt(document.getElementById("storlek").value);
+            } else if (model === "anpassad") {
+                donation = parseFloat(document.getElementById("anpassad").value) || 0;
+            }
+            
+            result.innerHTML = "Beräknad donation: " + donation.toLocaleString("sv-SE") + " kr";
+        }
+        
+        document.getElementById("model").addEventListener("change", updateInputs);
+        updateInputs();
+    </script>
+</body>
+</html>
