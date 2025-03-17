@@ -105,7 +105,7 @@
         <label for="model">Välj donationsmodell:</label>
         <select id="model">
             <option value="omsattning">Procentuell andel av dagsomsättning</option>
-            <option value="anstallda">Fast belopp per anställd</option>
+            <option value="medellon">Belopp baserat på medellön</option>
         </select>
         
         <div id="inputFields"></div>
@@ -127,9 +127,9 @@
             if (model === "omsattning") {
                 inputFields.innerHTML = '<label for="omsattning">Dagsomsättning (kr):</label><input type="number" id="omsattning">' +
                                        '<label for="procent">Procent att donera:</label><input type="number" id="procent">';
-            } else if (model === "anstallda") {
+            } else if (model === "medellon") {
                 inputFields.innerHTML = '<label for="antal">Antal anställda:</label><input type="number" id="antal">' +
-                                       '<label for="belopp">Belopp per anställd (kr):</label><input type="number" id="belopp">';
+                                       '<label for="medellon">Medellön per månad (kr):</label><input type="number" id="medellon">';
             }
         }
         
@@ -142,10 +142,11 @@
                 let omsattning = parseFloat(document.getElementById("omsattning").value) || 0;
                 let procent = parseFloat(document.getElementById("procent").value) || 0;
                 donation = (omsattning * procent) / 100;
-            } else if (model === "anstallda") {
+            } else if (model === "medellon") {
                 let antal = parseInt(document.getElementById("antal").value) || 0;
-                let belopp = parseFloat(document.getElementById("belopp").value) || 0;
-                donation = antal * belopp;
+                let medellon = parseFloat(document.getElementById("medellon").value) || 0;
+                let dagslon = medellon / 20; // Antal arbetsdagar i en månad
+                donation = antal * dagslon;
             }
             
             result.innerHTML = "Beräknad donation: " + donation.toLocaleString("sv-SE") + " kr";
