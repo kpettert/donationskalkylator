@@ -3,63 +3,68 @@
 <head>
     <title>Donationskalkylator</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=GT+Walsheim:wght@400;700&display=swap');
+        
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f6f4;
+            font-family: 'GT Walsheim', sans-serif;
+            background-color: #e6007e;
             text-align: center;
+            margin: 0;
+            padding: 0;
         }
         .container {
             max-width: 600px;
             margin: 50px auto;
-            padding: 30px;
+            padding: 40px;
             background: white;
             border-radius: 12px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
         }
         h2 {
             color: #e6007e;
-            font-size: 28px;
+            font-size: 32px;
         }
         p.intro {
-            font-size: 16px;
+            font-size: 18px;
             color: #333;
             text-align: center;
-            margin-bottom: 20px;
+            line-height: 1.8;
+            margin-bottom: 30px;
         }
         label {
             font-weight: bold;
-            margin-top: 10px;
+            margin-top: 15px;
             display: block;
             text-align: left;
             color: #333;
-            font-size: 16px;
+            font-size: 18px;
         }
         select, input {
             display: block;
-            width: 100%;
-            padding: 12px;
-            margin-top: 5px;
+            width: 50%;
+            padding: 14px;
+            margin: 10px auto;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 18px;
         }
         button {
             background-color: #e6007e;
             color: white;
-            padding: 12px;
-            font-size: 18px;
+            padding: 14px;
+            font-size: 20px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            margin-top: 15px;
+            margin-top: 20px;
             width: 100%;
         }
         button:hover {
             background-color: #cc006e;
         }
         #result {
-            margin-top: 20px;
-            font-size: 20px;
+            margin-top: 25px;
+            font-size: 24px;
             font-weight: bold;
             color: #333;
         }
@@ -67,11 +72,11 @@
             display: inline-block;
             background-color: #e6007e;
             color: white;
-            padding: 12px 20px;
-            font-size: 18px;
+            padding: 14px 24px;
+            font-size: 20px;
             border-radius: 8px;
             text-decoration: none;
-            margin-top: 20px;
+            margin-top: 30px;
             font-weight: bold;
         }
         .btn:hover {
@@ -87,8 +92,6 @@
         <select id="model">
             <option value="omsattning">Procentuell andel av dagsomsättning</option>
             <option value="anstallda">Fast belopp per anställd</option>
-            <option value="storlek">Fast belopp baserat på företagets storlek</option>
-            <option value="anpassad">Anpassad donation</option>
         </select>
         
         <div id="inputFields"></div>
@@ -97,7 +100,7 @@
         
         <h3 id="result"></h3>
         
-        <a class="btn" href="https://minstoradag.org/stod-oss/gava/?_gl=1*1k0uekr*_up*MQ..*_ga*MTkxMzQ4MDczNC4xNzQyMjA3OTM2*_ga_YZGV9T9V54*MTc0MjIwNzkzNi4xLjAuMTc0MjIwNzkzNi4wLjAuMA..">Ge gåva <i class="icon-angle-right"></i></a>
+        <a class="btn" href="https://minstoradag.org/stod-oss/gava/">Ge gåva <i class="icon-angle-right"></i></a>
     </div>
 
     <script>
@@ -112,15 +115,6 @@
             } else if (model === "anstallda") {
                 inputFields.innerHTML = '<label for="antal">Antal anställda:</label><input type="number" id="antal">' +
                                        '<label for="belopp">Belopp per anställd (kr):</label><input type="number" id="belopp">';
-            } else if (model === "storlek") {
-                inputFields.innerHTML = '<label for="storlek">Välj företagsstorlek:</label>' +
-                                       '<select id="storlek">' +
-                                       '<option value="5000">Litet företag (5 000 kr)</option>' +
-                                       '<option value="15000">Medelstort företag (15 000 kr)</option>' +
-                                       '<option value="30000">Stort företag (30 000 kr)</option>' +
-                                       '</select>';
-            } else if (model === "anpassad") {
-                inputFields.innerHTML = '<label for="anpassad">Ange belopp att donera (kr):</label><input type="number" id="anpassad">';
             }
         }
         
@@ -137,10 +131,6 @@
                 let antal = parseInt(document.getElementById("antal").value) || 0;
                 let belopp = parseFloat(document.getElementById("belopp").value) || 0;
                 donation = antal * belopp;
-            } else if (model === "storlek") {
-                donation = parseInt(document.getElementById("storlek").value);
-            } else if (model === "anpassad") {
-                donation = parseFloat(document.getElementById("anpassad").value) || 0;
             }
             
             result.innerHTML = "Beräknad donation: " + donation.toLocaleString("sv-SE") + " kr";
