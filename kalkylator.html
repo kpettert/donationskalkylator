@@ -20,6 +20,12 @@
             color: #e6007e;
             font-size: 28px;
         }
+        p.intro {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
         label {
             font-weight: bold;
             margin-top: 10px;
@@ -57,11 +63,26 @@
             font-weight: bold;
             color: #333;
         }
+        .btn {
+            display: inline-block;
+            background-color: #e6007e;
+            color: white;
+            padding: 12px 20px;
+            font-size: 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #cc006e;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Donationskalkylator</h2>
+        <p class="intro">Varje dag kämpar barn med allvarliga sjukdomar och diagnoser. Genom att bidra till Min Stora Dag hjälper du till att skapa oförglömliga upplevelser som ger kraft och glädje. Använd vår kalkylator för att räkna ut din donation och vara med och göra skillnad!</p>
         <label for="model">Välj donationsmodell:</label>
         <select id="model">
             <option value="omsattning">Procentuell andel av dagsomsättning</option>
@@ -75,6 +96,8 @@
         <button onclick="calculateDonation()">Beräkna donation</button>
         
         <h3 id="result"></h3>
+        
+        <a class="btn" href="https://minstoradag.org/stod-oss/gava/?_gl=1*1k0uekr*_up*MQ..*_ga*MTkxMzQ4MDczNC4xNzQyMjA3OTM2*_ga_YZGV9T9V54*MTc0MjIwNzkzNi4xLjAuMTc0MjIwNzkzNi4wLjAuMA..">Ge gåva <i class="icon-angle-right"></i></a>
     </div>
 
     <script>
