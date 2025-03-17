@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Var med och ge en dag för att orka flera!</title>
+    <title>Donationskalkylator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=GT+Walsheim:wght@400;700&display=swap');
         
@@ -106,7 +106,7 @@
 <body>
     <div class="container">
         <h2>Donationskalkylator</h2>
-        <p class="intro">Varje dag kämpar barn med allvarliga sjukdomar och diagnoser. Genom att bidra till Min Stora Dag hjälper du till att skapa oförglömliga upplevelser som ger kraft och glädje. Använd vår kalkylator för att räkna ut vad ditt företags arbetsdag är värd!</p>
+        <p class="intro">Varje dag kämpar barn med allvarliga sjukdomar och diagnoser. Genom att bidra till Min Stora Dag hjälper du till att skapa oförglömliga upplevelser som ger kraft och glädje. Använd vår kalkylator för att räkna ut din donation och vara med och göra skillnad!</p>
         <label for="model">Välj donationsmodell:</label>
         <select id="model">
             <option value="omsattning">Procentuell andel av dagsomsättning</option>
@@ -132,7 +132,19 @@
             
             if (model === "omsattning") {
                 inputFields.innerHTML = '<label for="omsattning">Dagsomsättning (kr):</label><input type="number" id="omsattning">' +
-                                       '<label for="procent">Procent att donera:</label><input type="number" id="procent">';
+                                       '<label for="procent">Procent att donera:</label>' +
+                                       '<select id="procent">' +
+                                       '<option value="10">10%</option>' +
+                                       '<option value="20">20%</option>' +
+                                       '<option value="30">30%</option>' +
+                                       '<option value="40">40%</option>' +
+                                       '<option value="50">50%</option>' +
+                                       '<option value="60">60%</option>' +
+                                       '<option value="70">70%</option>' +
+                                       '<option value="80">80%</option>' +
+                                       '<option value="90">90%</option>' +
+                                       '<option value="100">100%</option>' +
+                                       '</select>';
             } else if (model === "medellon") {
                 inputFields.innerHTML = '<label for="antal">Antal anställda:</label><input type="number" id="antal">' +
                                        '<label for="medellon">Medellön per månad (kr):</label><input type="number" id="medellon">';
