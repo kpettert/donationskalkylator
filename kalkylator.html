@@ -4,14 +4,6 @@
     <title>Donationskalkylator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=GT+Walsheim:wght@400;700&display=swap');
-
-.top-image {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 20px;
-    border-radius: 8px;
-    display: block;
-}
         
         body {
             font-family: 'GT Walsheim', sans-serif;
@@ -33,6 +25,7 @@
             height: auto;
             margin-bottom: 20px;
             border-radius: 8px;
+            display: block;
         }
         h2 {
             color: #e6007e;
@@ -119,9 +112,10 @@
 </head>
 <body>
     <div class="container">
-        <img src="https://github.com/kpettert/donationskalkylator/blob/main/endag.png?raw=true" alt="Kalenderblad 8 September" class="top-image">
+        <img src="URL-TILL-BILDEN" alt="Kalenderblad 8 September" class="top-image">
         <h2>Donationskalkylator</h2>
         <p class="intro">Varje dag kämpar barn med allvarliga sjukdomar och diagnoser. Genom att bidra till Min Stora Dag hjälper du till att skapa oförglömliga upplevelser som ger kraft och glädje. Använd vår kalkylator för att räkna ut din donation och vara med och göra skillnad!</p>
+        
         <label for="model">Välj donationsmodell:</label>
         <select id="model">
             <option value="omsattning">Procentuell andel av dagsomsättning</option>
@@ -140,14 +134,10 @@
     </div>
 
     <script>
-       
-        document.addEventListener("DOMContentLoaded", function() {
-    updateInputs();
-});
         function updateInputs() {
             let model = document.getElementById("model").value;
             let inputFields = document.getElementById("inputFields");
-            inputFields.innerHTML = "";
+            inputFields.innerHTML = ""; 
             
             if (model === "omsattning") {
                 inputFields.innerHTML = '<label for="omsattning">Dagsomsättning (kr):</label><input type="number" id="omsattning">' +
@@ -164,4 +154,36 @@
                                        '<option value="90">90%</option>' +
                                        '<option value="100">100%</option>' +
                                        '</select>';
-            } else if (model === "medellon
+            } else if (model === "medellon") {
+                inputFields.innerHTML = '<label for="antal">Antal anställda:</label><input type="number" id="antal">' +
+                                       '<label for="medellon">Medellön per månad (kr):</label><input type="number" id="medellon">';
+            }
+        }
+        
+        function calculateDonation() {
+            let model = document.getElementById("model").value;
+            let result = document.getElementById("result");
+            let explanation = document.getElementById("explanation");
+            let donation = 0;
+            
+            if (model === "omsattning") {
+                let omsattning = parseFloat(document.getElementById("omsattning").value) || 0;
+                let procent = parseFloat(document.getElementById("procent").value) || 0;
+                donation = (omsattning * procent) / 100;
+                explanation.innerHTML = "Beräkningen baseras på en procentandel av företagets dagsomsättning.";
+            } else if (model === "medellon") {
+                let antal = parseInt(document.getElementById("antal").value) || 0;
+                let medellon = parseFloat(document.getElementById("medellon").value) || 0;
+                let dagslon = medellon / 20; 
+                donation = antal * dagslon;
+                explanation.innerHTML = "Beräkningen baseras på att en månadslön delas på 20 arbetsdagar för att få en dagslön per anställd.";
+            }
+            
+            result.innerHTML = "Beräknad donation: " + donation.toLocaleString("sv-SE") + " kr";
+        }
+        
+        document.getElementById("model").addEventListener("change", updateInputs);
+        document.addEventListener("DOMContentLoaded", updateInputs);
+    </script>
+</body>
+</html>
